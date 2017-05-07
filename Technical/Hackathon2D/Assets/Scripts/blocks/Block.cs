@@ -4,8 +4,9 @@ using UnityEngine;
 
 public enum BlockType
 {
-    Dirt,
     None,
+
+    Dirt,
     Ground,
 
     Iron,
@@ -44,7 +45,7 @@ public class Block : MonoBehaviour
     void OnMouseDown()
     {
         this.OnHit();
-        MovementController.instance.SetNewPosition(this.transform.position);
+        MovementController.instance.SetNewPosition(this.transform.position, this);
     }
 
     

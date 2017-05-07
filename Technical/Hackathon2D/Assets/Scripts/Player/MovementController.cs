@@ -12,6 +12,10 @@ public class MovementController : MonoSingleton<MovementController> {
 
     private GameObject player;
 
+    public MapManager mapManager;
+
+    List<List<BlockType>> matrix;
+
     private enum Status
     {
         FINISH,
@@ -40,7 +44,7 @@ public class MovementController : MonoSingleton<MovementController> {
         {
             newPosition = GetNewPosition(Input.mousePosition);
             Debug.Log("Player " + player.transform.position + ", new pos " + newPosition);
-            if(player.transform.position.y != newPosition.y ||
+            if(/*player.transform.position.y != newPosition.y ||*/
                 player.transform.position.x != newPosition.x)
             {
                 status = Status.GOING;
@@ -56,12 +60,14 @@ public class MovementController : MonoSingleton<MovementController> {
             Vector3 tempPosition = player.transform.position;
             if (timeMove <= 0)
             {
-               
-                if(tempPosition.y != newPosition.y)
+
+                /*if(tempPosition.y != newPosition.y)
                     tempPosition.y += (player.transform.position.y < newPosition.y) ? 1 : -1;
-                else
-                    tempPosition.x += (player.transform.position.x < newPosition.x) ? 1 : -1;
-                timeMove = 0.2f;
+                else*/
+                //if (tempPosition.x != newPosition.x)
+                tempPosition = Vector3.MoveTowards(player.transform.position, newPosition - new Vector3(0, 0.25f, 0), moveSpeed);
+                //tempPosition = newPosition;
+                //timeMove = 0.05f;
             }
             else
             {
@@ -69,11 +75,12 @@ public class MovementController : MonoSingleton<MovementController> {
             }
 
             player.transform.position = tempPosition;
-            if (player.transform.position.y == newPosition.y && player.transform.position.x == newPosition.x)
+            //Debug.Log("Player " + player.transform.position + ", new pos " + newPosition);
+            if (/*player.transform.position.y == newPosition.y && */player.transform.position.x == newPosition.x)
                 status = Status.FINISH;
 
         }
-        Debug.Log(status);
+        //Debug.Log(status);
     }
 
     Vector3 GetNewPosition(Vector3 position)
@@ -94,10 +101,17 @@ public class MovementController : MonoSingleton<MovementController> {
         return Camera.main.ScreenToWorldPoint(screenPoint);
     }
 
-    public void SetNewPosition(Vector3 pos)
+    public void SetNewPosition(Vector3 pos, Block block)
     {
         newPosition = pos;
         status = Status.GOING;
+        matrix = mapManager.matrix;
+        matrix[block.row][block.col] = BlockType.None;
+
+        foreach(List<BlockType> i in matrix)
+        {
+            Debug.Log(i[block.row]);
+        }
     }
 
     void Test()
