@@ -26,7 +26,7 @@ public class MapManager : MonoBehaviour {
 	void Update () {
         scrollTransform.position += Vector3.up * scrollSpeed * Time.deltaTime;
         distance += scrollSpeed * Time.deltaTime;
-       
+
         this.time += Time.deltaTime;
         if(this.time >= 1)
         {

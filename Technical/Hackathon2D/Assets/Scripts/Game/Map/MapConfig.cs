@@ -6,7 +6,7 @@ using System.Text;
 public class MapConfig
 {
     public const int width = 8;
-    public const int height = 10;
+    public const int height = 11;
 
     public const int numberOfBlockTypes = 8;
 
