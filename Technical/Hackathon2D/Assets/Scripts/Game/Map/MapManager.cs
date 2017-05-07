@@ -74,6 +74,10 @@ public class MapManager : MonoBehaviour {
             l.Add((BlockType)type);
             GameObject go = Instantiate(BlockManager.instance.GetBlockByID(type),
                     new Vector3(posX, posY), Quaternion.identity, scrollTransform) as GameObject;
+
+            Block b = go.GetComponent<Block>();
+            b.row = max;
+            b.col = i;
         }
         this.matrix.Add(l);
         max++;
