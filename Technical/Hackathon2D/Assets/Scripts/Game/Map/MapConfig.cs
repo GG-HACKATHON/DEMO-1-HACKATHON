@@ -8,7 +8,7 @@ public class MapConfig
     public const int width = 8;
     public const int height = 10;
 
-    public const int numberOfBlockTypes = 2;
+    public const int numberOfBlockTypes = 8;
 
     public const string MAP_1 = @"Assets\Resources\Maps\map1.txt";
 }

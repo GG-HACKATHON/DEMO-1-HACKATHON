@@ -8,8 +8,6 @@ public class MapManager : MonoBehaviour {
 
     List< List<int> > matrix;
 
-    public GameObject block;
-
     public const float constX = -3.5f;
     public const float constY = 2f;
     public const float between = 1f;
@@ -41,7 +39,8 @@ public class MapManager : MonoBehaviour {
                 float posX = constX + between * j;
 
                 // Instantiate block here
-                GameObject go = Instantiate(block, new Vector3(posX, posY), Quaternion.identity, transform) as GameObject;
+                GameObject go = Instantiate(BlockManager.instance.GetBlockByID(matrix[i][j]),
+                    new Vector3(posX, posY), Quaternion.identity, transform) as GameObject;
             }
         }
     }
@@ -59,6 +58,8 @@ public class MapManager : MonoBehaviour {
         {
             row.Add(Random.Range(0, MapConfig.width));
         }
+
+        matrix.Add(row);
     }
 
     void RemoveLine()
