@@ -23,7 +23,9 @@ public enum BlockType
 
     BlockBlack,
     BlockWhite,
-    Ground2
+    Ground2,
+
+    Boom
 }
 
 public class Block : MonoBehaviour
@@ -35,44 +37,34 @@ public class Block : MonoBehaviour
     public int healthMax;
     private int health;
 
-    public GameObject[] items;
     
     void Awake()
     {
         health = healthMax;
     }
 
+    // test click vào đây
+    // !!! không sử dụng hàm này, hãy xài OnHit();
     void OnMouseDown()
     {
         this.OnHit();
         MovementController.instance.SetNewPosition(this.transform.position, this);
     }
 
-    
-    public virtual void OnHit()
+    // khi mà người dùng táng block này
+    public void OnHit()
     {
         health--;
-        Debug.Log(health);
-        if(health <= 0)
-        {
 
+        if (health <= 0)
+        {
             gameObject.SetActive(false);
-        }
-
-
-        // give something for player
-        ThrowItem();
+            OnDie();
+        }        
     }
+    protected virtual void OnDie() {}
 
-    protected virtual void ThrowItem()
-    {
-        for (int i = 0; i < items.Length; i++)
-        {
-            Instantiate(items[i], transform.position, Quaternion.identity, null);
-        }
-    }
-
-
+    // lấy toạ độ đã làm tròn
     public Vector2 Pos()
     {
         return new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
@@ -80,6 +72,7 @@ public class Block : MonoBehaviour
 
     public virtual void Reset()
     {
+        gameObject.SetActive(true);
         health = healthMax;
     }
 }

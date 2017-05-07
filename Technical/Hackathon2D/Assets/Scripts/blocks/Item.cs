@@ -22,15 +22,14 @@ public class Item : MonoBehaviour
 {
     public ItemType type;
 
+    // khi va chạm với cái gì đó
     void OnCollisionEnter2D(Collision2D col)
     {
         Give();
     }
 
-    protected virtual void Give()
+    void Give()
     {
 
     }
-
-	
 }
