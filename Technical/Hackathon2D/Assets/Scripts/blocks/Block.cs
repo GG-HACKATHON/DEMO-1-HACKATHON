@@ -40,6 +40,7 @@ public class Block : MonoBehaviour
     void OnMouseDown()
     {
         this.OnHit();
+        MovementController.instance.SetNewPosition(this.transform.position);
     }
 
     

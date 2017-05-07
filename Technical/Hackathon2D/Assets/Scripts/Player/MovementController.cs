@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementController : MonoBehaviour {
+public class MovementController : MonoSingleton<MovementController> {
 
     public float moveSpeed;
 
@@ -30,7 +30,7 @@ public class MovementController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        MouseHandle();
+        //MouseHandle();
         UpdateStatus();
 	}
 
@@ -92,6 +92,12 @@ public class MovementController : MonoBehaviour {
         Vector3 screenPoint = worldPosition;
         screenPoint.z = 10.0f; //distance of the plane from the camera
         return Camera.main.ScreenToWorldPoint(screenPoint);
+    }
+
+    public void SetNewPosition(Vector3 pos)
+    {
+        newPosition = pos;
+        status = Status.GOING;
     }
 
     void Test()
