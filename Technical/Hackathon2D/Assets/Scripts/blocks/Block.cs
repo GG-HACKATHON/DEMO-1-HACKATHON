@@ -28,6 +28,8 @@ public enum BlockType
 public class Block : MonoBehaviour
 {
     public BlockType type;
+    public int row;
+    public int col;
 
     public int healthMax;
     private int health;
