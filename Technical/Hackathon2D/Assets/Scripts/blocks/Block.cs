@@ -23,29 +23,43 @@ public enum BlockType
 
 public class Block : MonoBehaviour
 {
-    
-
     public BlockType type;
 
-    public int health;
+    public int healthMax;
+    private int health;
     
-    public void Awake()
+    void Awake()
     {
-
+        health = healthMax;
     }
 
     public void OnHit()
     {
-        
+        health--;
+        if(health <= 0)
+        {
 
+            gameObject.SetActive(false);
+        }
 
-        gameObject.SetActive(false);
 
         // give something for player
+        ThrowItem();
     }
+
+    protected virtual void ThrowItem()
+    {
+
+    }
+
 
     public Vector2 Pos()
     {
         return new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+    }
+
+    public virtual void Reset()
+    {
+        health = healthMax;
     }
 }
