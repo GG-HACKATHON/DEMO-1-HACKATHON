@@ -31,6 +31,8 @@ public class Block : MonoBehaviour
 
     public int healthMax;
     private int health;
+
+    public GameObject[] items;
     
     void Awake()
     {
@@ -47,6 +49,7 @@ public class Block : MonoBehaviour
     public virtual void OnHit()
     {
         health--;
+        Debug.Log(health);
         if(health <= 0)
         {
 
@@ -60,7 +63,10 @@ public class Block : MonoBehaviour
 
     protected virtual void ThrowItem()
     {
-
+        for (int i = 0; i < items.Length; i++)
+        {
+            Instantiate(items[i], transform.position, Quaternion.identity, null);
+        }
     }
 
 
