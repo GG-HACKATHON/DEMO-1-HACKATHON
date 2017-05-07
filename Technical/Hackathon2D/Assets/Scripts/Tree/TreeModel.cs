@@ -6,14 +6,14 @@ using UnityEngine;
 public class Request 
 {
     public Block Item;
-    public int countRequest;
-    public int countItem;
+    public int Total;
+    public int count;
   
-    public Request(Block item, int countRequest)
+    public Request(Block item, int total)
     {
         this.Item = item;
-        this.countRequest = countRequest;
-        this.countItem = 0;
+        this.Total = total;
+        this.count = 0;
     }
 
 };
@@ -23,7 +23,7 @@ public class RequestModel
     public BlockType type;
     public Sprite spr;
 
-    public Sprite getSprite(BlockType type)
+    public Sprite getSprite()
     {
         return spr;
     }
@@ -34,18 +34,34 @@ public class TreeModel : MonoBehaviour {
     private int treeLevel;
     public List<Request> requestList;
     public List<RequestModel> spriteRequest;
-
+    public List<GameObject> ListItemRequest;
     
     
 	void Start () {
-		
-	}
+        Request req1 = new Request(new Block(), 10);
+        requestList.Add(req1);
+        Request req2 = new Request(new Block(), 10);
+        requestList.Add(req2);
+        Request req3 = new Request(new Block(), 10);
+        requestList.Add(req3);
+        Request req4 = new Request(new Block(), 10);
+        requestList.Add(req4);
+
+        SetImageItem();
+
+
+    }
 	
 	void Update () {
 		
 	}
 
-    void setRequest(Request[] request)
+    public void updateTreeImage()
+    {
+
+    }
+
+    public void setRequest(Request[] request)
     {
         foreach(Request req in request)
         {
@@ -53,18 +69,18 @@ public class TreeModel : MonoBehaviour {
         }
     }
 
-    List<Request> getRequest() 
+    public List<Request> getRequest() 
     {
         return this.requestList;
     }
 
-    void AddItem(Block item)
+    public void AddItem(Block item)
     {
         foreach(Request req in requestList)
         {
             if(req.Item.type == item.type)
             {
-                req.countItem++;
+                req.count++;
                 return;
             }
         }
@@ -74,7 +90,7 @@ public class TreeModel : MonoBehaviour {
     {
         foreach (Request req in requestList)
         {
-            if (req.countItem != req.countRequest)
+            if (req.count != req.Total)
             {
                 return false;
             }
@@ -85,6 +101,14 @@ public class TreeModel : MonoBehaviour {
 
     public void SetImageItem()
     {
-        
+        for(int i = 0; i < requestList.Count; i++)
+        {
+            RequestItem reqItem = ListItemRequest[i].GetComponent<RequestItem>();
+            Sprite sprite = spriteRequest[i].spr;
+            reqItem.setImage(sprite);
+            reqItem.setText(requestList[i]);
+            
+        }
     }
+
 }

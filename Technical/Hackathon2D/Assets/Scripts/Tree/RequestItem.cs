@@ -22,10 +22,8 @@ public class RequestItem : MonoBehaviour {
         this.image.sprite = sprite;
     }
 
-    public void setText(string text)
+    public void setText(Request req)
     {
-        this.text.text = text;
+        this.text.text = req.count + "/" + req.Total;
     }
-
-
 }
