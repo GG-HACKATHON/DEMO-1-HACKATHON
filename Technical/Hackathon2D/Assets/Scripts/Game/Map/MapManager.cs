@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour {
 
-    public float srollSpeed;
+    public float scrollSpeed;
+    public Transform scrollTransform;
 
     List< List<int> > matrix;
 
     public const float constX = -3.5f;
     public const float constY = 2f;
     public const float between = 1f;
+
+
+    private float distance = 0;
+
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +24,12 @@ public class MapManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        transform.position += Vector3.up * scrollSpeed * Time.deltaTime;
+        if (distance >= between)
+        {
+            distance = 0f;
+        }
+        distance += scrollSpeed * Time.deltaTime;
 	}
 
     void Setup()
@@ -40,7 +50,7 @@ public class MapManager : MonoBehaviour {
 
                 // Instantiate block here
                 GameObject go = Instantiate(BlockManager.instance.GetBlockByID(matrix[i][j]),
-                    new Vector3(posX, posY), Quaternion.identity, transform) as GameObject;
+                    new Vector3(posX, posY), Quaternion.identity, scrollTransform) as GameObject;
             }
         }
     }
