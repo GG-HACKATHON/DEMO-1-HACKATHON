@@ -11,6 +11,11 @@ public class BlockDirt : Block
         base.ThrowItem();
     }
 
+    [ContextMenu("OnHit")]
+    public override void OnHit()
+    {
+        base.OnHit();
+    }
 
-    
+
 }

@@ -7,15 +7,19 @@ public enum BlockType
     Dirt,
     None,
     Ground,
+
     Iron,
     Bronze,
     Silver,
     Gold,
+
     GemBlue,
     GemRed,
     GemGreen,
     GemWhite,
+
     Bone,
+
     BlockBlack,
     BlockWhite,
     Ground2
@@ -33,7 +37,13 @@ public class Block : MonoBehaviour
         health = healthMax;
     }
 
-    public void OnHit()
+    void OnMouseDown()
+    {
+        this.OnHit();
+    }
+
+    
+    public virtual void OnHit()
     {
         health--;
         if(health <= 0)
